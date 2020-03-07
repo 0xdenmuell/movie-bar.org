@@ -1,0 +1,258 @@
+﻿@model Chat.ViewModels.HomeDetailsViewModel
+
+@{ var errorMessage = "";
+
+    if ((int)ViewData["error"] == 1)
+    {
+        errorMessage = "display: block; text-align: center";
+    }
+
+}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Staatliches&display=swap" rel="stylesheet">
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .errorMessage {
+            display: none;
+        }
+
+
+        /* STYLE FOR NAVBAR ON DESKTOP*/
+        .navbar {
+            overflow: hidden;
+            background-color: black;
+        }
+
+            .navbar a.logo {
+                font-size: 40px;
+                font-weight: bold;
+                font-family: 'Staatliches', cursive;
+                color: white;
+                float: left;
+            }
+
+            .navbar a {
+                float: right;
+                color: white;
+                margin: 14px;
+                text-decoration: none;
+                font-size: 17px;
+            }
+
+        .nav-buttons {
+            margin-top: 15px;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        .navbar a:hover:not(.logo) {
+            border-bottom: 3px solid red;
+        }
+
+        .navbar .icon {
+            display: none;
+        }
+
+        /* STYLE FOR NAVBAR ON DESKTOP */
+
+        /*--------------------------------*/
+
+        /* STYLE FOR NAVBAR ON MOBILE */
+        @@media screen and (max-width: 644px) {
+            .navbar a:not(.logo) {
+                display: none;
+            }
+
+            .navbar a.icon {
+                float: right;
+                display: block;
+            }
+
+            .navbar.responsive {
+                position: relative;
+            }
+
+                .navbar.responsive .icon {
+                    position: absolute;
+                    right: 0;
+                    top: 15px;
+                }
+
+                .navbar.responsive a {
+                    float: none;
+                    display: block;
+                    text-align: left;
+                }
+        }
+
+        /* STYLE FOR NAVBAR ON MOBILE */
+
+        /*--------------------------------*/
+
+        /* STYLE FOR SEARCHBAR ON DESKTOP */
+
+        .forms {
+            display: flex;
+            text-align: center;
+            font-family: Arial;
+            justify-content: center;
+            margin-top: 200px;
+        }
+
+        .input-select {
+            padding: 20px 10px;
+            background: #fff;
+            border: none;
+            border-bottom: 3px solid #3F888F;
+            cursor: pointer;
+            padding-bottom: 5px;
+            margin-top: 5px;
+        }
+
+            .input-select select {
+                padding-top: 5px;
+                font-size: 20px;
+                border: none;
+                background: transparent;
+                padding-top: 0;
+            }
+
+        .searchbar {
+            font-size: 25px;
+            padding: 23px 60px;
+            background: #fff;
+            border: none;
+            border-bottom: 3px solid #3F888F;
+            text-align: left;
+            padding-bottom: 10px;
+        }
+
+            .searchbar::placeholder {
+                color: black;
+                font-size: 20px;
+            }
+
+        /* STYLE FOR SEARCHBAR ON DESKTOP */
+
+        /*--------------------------------*/
+
+        /* STYLE FOR SEARCHBAR ON MOBILE */
+
+        @@media screen and (max-width: 644px) {
+
+            .forms {
+                max-width: 644px;
+                width: 100%;
+                height: auto;
+                display: list-item;
+                margin-top: 100px;
+            }
+
+            .searchbar {
+                width: 100%;
+                padding: 23px 0px;
+                text-align: center;
+            }
+
+            .input-select {
+                width: 100%;
+                padding: 20px 0px;
+            }
+        }
+        /* STYLE FOR SEARCHBAR ON MOBILE */
+
+        /*--------------------------------*/
+
+        /* STYLE FOR LOGIN */
+        .username {
+            font-family: 'Staatliches', cursive;
+            font-size: 25px;
+            margin-left: 30px;
+        }
+        /* STYLE FOR LOGIN */
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="navbar" id="myNavbar">
+            <a href="/" class="logo">MovieBar</a>
+            <div class="nav-buttons">
+                @{
+                    if ((int)ViewData["loginstatus"] == 1)
+                    {
+                        <a href="/favorit?status=-1&imdbID=0">Favorits</a>
+                        <a href="/logout">Logout</a>
+                    }
+                    else if ((int)ViewData["loginstatus"] == 0)
+                    {
+                        <a href="/loginform">Login</a>
+                        <a href="/registerform">Register</a>
+                    }
+                }
+            </div>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
+    </header>
+
+    @{ if ((int)ViewData["loginstatus"] == 1)
+        {
+            <p class="username">Welcome @Model.Login.username!</p>
+        }
+    }
+
+    <div class="forms">
+        <div class="input-select">
+            <select name="filter" id="filterMenu">
+                <option value="default" disabled selected>Category</option>
+                <option value="movie">Movies</option>
+                <option value="series">Series</option>
+                <option value="game">Games</option>
+            </select>
+        </div>
+
+        <input type="text" class="searchbar" placeholder="Type here to search" name="input" id="searchbar" onkeyup="enterEvent(event)">
+
+    </div>
+
+    <p class="errorMessage" style="@Html.Raw(errorMessage);">Sorry! We did not find anything.</p>
+
+    <script>
+
+        function enterEvent(event) {
+            if (event.keyCode === 13) {
+                search();
+            }
+        }
+
+        function search() {
+            window.location.href = window.location.origin + '/search?input=' + document.getElementById('searchbar').value + '&type=' + document.getElementById('filterMenu').value + '&amount=25';
+        }
+
+        function myFunction() {
+            var x = document.getElementById("myNavbar");
+            if (x.className === "navbar") {
+                x.className += " responsive";
+            } else {
+                x.className = "navbar";
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

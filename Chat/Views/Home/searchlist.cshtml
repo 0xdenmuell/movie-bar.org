@@ -1,0 +1,341 @@
+﻿@model Chat.ViewModels.HomeDetailsViewModel
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Staatliches&display=swap" rel="stylesheet">
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* STYLE FOR NAVBAR ON DESKTOP*/
+        .navbar {
+            overflow: hidden;
+            background-color: black;
+        }
+
+            .navbar a.logo {
+                font-size: 40px;
+                font-weight: bold;
+                font-family: 'Staatliches', cursive;
+                color: white;
+                float: left;
+            }
+
+            .navbar a {
+                float: right;
+                color: white;
+                margin: 14px;
+                text-decoration: none;
+                font-size: 17px;
+            }
+
+        .nav-buttons {
+            margin-top: 15px;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        .navbar a:hover:not(.logo) {
+            border-bottom: 3px solid red;
+        }
+
+        .navbar .icon {
+            display: none;
+        }
+
+        /* STYLE FOR NAVBAR ON DESKTOP */
+
+        /*--------------------------------*/
+
+        /* STYLE FOR NAVBAR ON MOBILE */
+        @@media screen and (max-width: 644px) {
+            .navbar a:not(.logo) {
+                display: none;
+            }
+
+            .navbar a.icon {
+                float: right;
+                display: block;
+            }
+
+            .navbar.responsive {
+                position: relative;
+            }
+
+                .navbar.responsive .icon {
+                    position: absolute;
+                    right: 0;
+                    top: 15px;
+                }
+
+                .navbar.responsive a {
+                    float: none;
+                    display: block;
+                    text-align: left;
+                }
+        }
+
+        /* STYLE FOR NAVBAR ON MOBILE */
+
+        /*--------------------------------*/
+
+        /* STYLE FOR SEARCHLIST */
+        .object {
+            display: inline-block;
+            text-align: center;
+        }
+
+        .object-img {
+            display: block;
+            margin-top: 20px;
+            margin-left: 20px;
+            max-width: 100%;
+            height: auto;
+        }
+
+
+        .object-details {
+            margin-left: 20px;
+            max-width: 300px;
+            background-color: black;
+            width: 100%;
+            height: auto;
+            text-align: center;
+        }
+
+        .title {
+            margin-left: 15px;
+            font-family: 'Staatliches', cursive;
+            font-size: 30px;
+        }
+
+        .object-button-details:hover {
+            border-bottom: 3px solid #FF4F58FF;
+        }
+
+        .object-text {
+            display: contents;
+            color: white;
+            text-decoration-line: none;
+        }
+
+        @@media screen and (max-width: 644px) {
+            .object {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 300px;
+                color: white;
+            }
+
+            .object-img {
+                margin-left: 0px;
+            }
+
+            .object-details {
+                margin-left: 0px;
+            }
+        }
+
+        /* STYLE FOR SEARCHLIST */
+
+
+        /*STYLE FOR SEARCHBAR */
+
+        .forms {
+            display: flex;
+            text-align: center;
+            font-family: Arial;
+            justify-content: center;
+        }
+
+        @@media screen and (max-width: 644px) {
+            .forms {
+                max-width: 644px;
+                width: 100%;
+                height: auto;
+                display: list-item;
+            }
+        }
+
+
+        .input-select {
+            padding: 20px 10px;
+            background: #fff;
+            border: none;
+            border-bottom: 3px solid #3F888F;
+            cursor: pointer;
+            padding-bottom: 5px;
+            margin-top: 5px;
+        }
+
+            .input-select select {
+                padding-top: 5px;
+                font-size: 20px;
+                border: none;
+                background: transparent;
+                padding-top: 0;
+            }
+
+        .searchbar {
+            font-size: 25px;
+            padding: 23px 60px;
+            background: #fff;
+            border: none;
+            border-bottom: 3px solid #3F888F;
+            text-align: left;
+            padding-bottom: 10px;
+        }
+
+            .searchbar::placeholder {
+                color: black;
+                font-size: 20px;
+            }
+
+        .Founds {
+            margin-left: 20px;
+            font-size: 15px;
+            margin-top: 1px;
+            margin-bottom: 0;
+        }
+
+        @@media screen and (max-width: 644px) {
+            .searchbar {
+                width: 100%;
+                padding: 23px 0px;
+                text-align: center;
+            }
+
+            .input-select {
+                width: 100%;
+                padding: 20px 0px;
+            }
+        }
+
+        .input-select-founds {
+            background: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+            .input-select-founds select {
+                font-size: 15px;
+                border: none;
+                background: transparent;
+            }
+
+        .items {
+            margin-top: 20px;
+            display: flex;
+        }
+
+        /*STYLE FOR SEARCHBAR */
+
+    </style>
+</head>
+
+<body>
+    <!-- navbar -->
+    <header>
+        <div class="navbar" id="myNavbar">
+            <a href="/" class="logo">MovieBar</a>
+            <div class="nav-buttons">
+                @if ((int)ViewData["loginstatus"] == 1)
+                {
+                    <a href="/favorit?status=-1&imdbID=0">Favorits</a>
+                    <a href="/logout"> Logout</a>
+                }
+                else
+                {
+                    <a href="/loginform">Login</a>
+                    <a href="/registerform">Register</a>
+                }
+            </div>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- searchbar -->
+    <div class="forms">
+        <div class="input-select">
+            <select id="type" onchange="getValues()">
+                <option value="default" disabled selected>Category</option>
+                <option value="movie">Movies</option>
+                <option value="series">Series</option>
+                <option value="game">Games</option>
+            </select>
+        </div>
+
+        <form action="/search" method="GET">
+            <input type="text" class="searchbar" placeholder="Type here to search" name="input" id="searchbar">
+        </form>
+    </div>
+
+    <div class="items">
+        <p class="Founds"> @ViewData["NumberofResults"] |</p>
+        <div class="forms-founds">
+            <div class="input-select-founds">
+                <select id="amount" onchange="getValues()">
+                    <option value="default" disabled selected>Results per Side</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="200">200</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- filme -->
+    @foreach (var obj in Model.FilmeList)
+    {
+        <div class="object">
+            <a href="/search/details/@(obj.imdbID)">
+                <img class="object-img" src="@obj.Poster" alt="film-poster">
+            </a>
+            <div class="object-details" style="cursor: pointer;" >
+                <a href="/search/details/@(obj.imdbID)" onclick="getDetails()" class="object-text"><span class="title">@obj.Title</span> | <span class="release">@obj.Year</span></a>
+         
+
+            </div>
+        </div>
+    }
+
+
+    <script>
+
+        function getValues() {
+            var searchParams = new URLSearchParams(window.location.search);
+            var type = document.getElementById("type").value;
+            var amount = document.getElementById("amount").value;
+            if (type != "default") {
+                searchParams.set("type", type);
+            }
+            else if (amount != "default") {
+                searchParams.set("amount", amount);
+            }
+            window.location.href = window.location.origin + window.location.pathname + "?" + searchParams;
+        }
+
+        //script for navbar dropdown menu
+        function myFunction() {
+            var x = document.getElementById("myNavbar");
+            if (x.className === "navbar") {
+                x.className += " responsive";
+            } else {
+                x.className = "navbar";
+            }
+        }
+    </script>
+
+</body>
+
+</html>

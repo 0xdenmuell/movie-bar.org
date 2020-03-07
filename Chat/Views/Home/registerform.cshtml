@@ -1,0 +1,295 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Staatliches&display=swap" rel="stylesheet">
+    <style>
+
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+
+        /* STYLE FOR NAVBAR ON DESKTOP */
+        .navbar {
+            overflow: hidden;
+            background-color: black;
+        }
+
+            .navbar a.logo {
+                font-size: 40px;
+                font-weight: bold;
+                font-family: 'Staatliches', cursive;
+                color: white;
+                float: left;
+            }
+
+            .navbar a {
+                float: right;
+                color: white;
+                margin: 14px;
+                text-decoration: none;
+                font-size: 17px;
+            }
+
+        .nav-buttons {
+            margin-top: 15px;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        .navbar a:hover:not(.logo) {
+            border-bottom: 3px solid red;
+        }
+
+        .navbar .icon {
+            display: none;
+        }
+
+
+        /* STYLE FOR NAVBAR ON DESKTOP */
+
+        /* ---------------------------------- */
+
+        /* STYLE FOR NAVBAR ON MOBILE */
+
+        @@media screen and (max-width: 644px) {
+
+            .navbar a:not(.logo) {
+                display: none;
+            }
+
+            .navbar a.icon {
+                float: right;
+                display: block;
+            }
+
+
+
+            .navbar.responsive {
+                position: relative;
+            }
+
+                .navbar.responsive .icon {
+                    position: absolute;
+                    right: 0;
+                    top: 15px;
+                }
+
+                .navbar.responsive a {
+                    float: none;
+                    display: block;
+                    text-align: left;
+                }
+        }
+
+        /* STYLE FOR NAVBAR ON MOBILE */
+
+        /* ---------------------------------- */
+
+        /* STYLE FOR INPUT ON DESKTOP */
+
+        .searchbar {
+            font-size: 25px;
+            padding: 23px;
+            background: #fff;
+            border: none;
+            border-bottom: 3px solid #FF4F58FF;
+            text-align: center;
+            padding-bottom: 10px;
+        }
+
+            .searchbar::placeholder {
+                color: black;
+                font-size: 20px;
+            }
+
+        .username {
+            font-family: 'Staatliches', cursive;
+            font-size: 25px;
+            margin-left: 30px;
+        }
+
+
+        .object-details {
+            margin-left: 20px;
+            max-width: 300px;
+            background-color: black;
+            width: 100%;
+            height: auto;
+            text-align: center;
+            border-bottom: 3px solid #FF4F58FF;
+            color: white;
+            font-size: 30px;
+            font-family: 'Staatliches', cursive;
+            position: relative;
+            padding-right: 30px;
+            padding-left: 30px;
+            width: 150px;
+        }
+
+        .title {
+            position: relative;
+            font-style: 30px;
+            top: 25px;
+        }
+
+        .allObjects {
+            margin-left: 30px;
+            display: grid;
+        }
+
+        .button-submit {
+            border: none;
+            font-family: 'Staatliches', cursive;
+            cursor: pointer;
+            background: black;
+            color: white;
+            border-bottom: 3px solid red;
+            margin-left: 20px;
+            width: 570px;
+            height: 62px;
+            font-size: 30px;
+            padding-top: 23px;
+        }
+        /* STYLE FOR INPUT ON DESKTOP */
+        /* ---------------------------------- */
+        /* STYLE FOR INPUT ON MOBILE */
+        @@media screen and (min-width: 644px) {
+            .forms {
+                display: inline-flex;
+                text-align: center;
+                font-family: Arial;
+                justify-content: left;
+                margin-top: 50px;
+                margin-left: 20px;
+            }
+        }
+
+        /* STYLE FOR INPUT ON MOBILE */
+
+        /* ---------------------------------- */
+
+        .heading {
+            margin-top: 100px;
+            margin-left: 20px;
+            font-family: 'Staatliches', cursive;
+        }
+
+
+        @@media screen and (max-width: 644px) {
+
+            .heading {
+                margin-top: 50px;
+            }
+
+            .button-submit {
+                margin-left: 0px;
+                margin-bottom: 20px;
+                cursor: pointer;
+                max-width: 644px;
+                width: 100%;
+            }
+
+            .object-details {
+                max-width: 644px;
+                height: 30px;
+                width: 100%;
+                margin-left: 0px;
+                padding: 0px;
+                padding-bottom: 40px;
+                border-bottom: 0;
+            }
+
+            .searchbar {
+                margin-bottom: 30px;
+                width: 100%;
+                text-align: center;
+                padding-right: 0px;
+                padding-left: 0px;
+            }
+
+            .allObjects {
+                margin-left: 0px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="navbar" id="myNavbar">
+            <a href="/" class="logo">MovieBar</a>
+            <div class="nav-buttons">
+                
+                <a href="/loginform">Login</a>
+                <a href="/registerform">Register</a>
+
+            </div>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
+    </header>
+
+    <h1 class="heading">Register here</h1>
+
+    <div class="allObjects">
+        <form action="/register" method="post" style="display: contents;">
+            <div class="forms">
+                <div class="object-details">
+
+                    <a class="object-text"><span class="title">Email:</span></a>
+                </div>
+                <input type="email" class="searchbar" placeholder="Type here" name="email" id="email" onkeyup="enterEvent(event)">
+            </div>
+            <div class="forms">
+                <div class="object-details">
+                    <a class="object-text"><span class="title">Username:</span></a>
+                </div>
+                <input type="text" class="searchbar" placeholder="Type here" name="username" id="username" onkeyup="enterEvent(event)">
+            </div>
+            <div class="forms">
+                <div class="object-details">
+                    <a class="object-text"><span class="title">Password:</span></a>
+                </div>
+                <input type="password" class="searchbar" placeholder="Type here" name="password" id="password" onkeyup="enterEvent(event)">
+            </div>
+
+            <div class="forms">
+                <button class="button-submit" type="submit">Register!</button>
+            </div>
+        </form>
+    </div>
+    <script>
+
+        function enterEvent(event) {
+            if (event.keyCode === 13) {
+                search();
+            }
+        }
+
+
+        function search() {
+            if (document.getElementById('username').value == '' || document.getElementById('password').value == '' || document.getElementById('email').value == '') {
+                alert('Please fill all out!');
+            }
+
+        }
+
+        function myFunction() {
+            var x = document.getElementById("myNavbar");
+            if (x.className === "navbar") {
+                x.className += " responsive";
+            } else {
+                x.className = "navbar";
+            }
+        }
+    </script>
+</body>
+
+</html>

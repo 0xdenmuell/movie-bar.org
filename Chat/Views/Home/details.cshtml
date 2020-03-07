@@ -1,0 +1,396 @@
+﻿@model Chat.ViewModels.HomeDetailsViewModel
+@{
+
+    var color = "";
+    bool success = Int32.TryParse(Model.Filme.Metascore, out int score);
+
+
+    if (success == false)
+    {
+        color = "display: none";
+        goto end;
+    }
+
+
+
+    if (Model.Filme.Type == "movie" || Model.Filme.Type == "series")
+    {
+        if (score <= 39)
+        {
+            color = "background: #f00";
+        }
+        else if (score <= 60)
+        {
+            color = "background: #fc3";
+        }
+        else
+        {
+            color = "background: #6c3";
+        }
+    }
+    else
+    {
+        if (score <= 49)
+        {
+            color = "background: #f00";
+        }
+        else if (score <= 74)
+        {
+            color = "background: #fc3";
+        }
+        else
+        {
+            color = "background: #6c3";
+        }
+    }
+end:
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Staatliches&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* STYLE FOR NAVBAR ON DESKTOP*/
+        .navbar {
+            overflow: hidden;
+            background-color: black;
+        }
+
+            .navbar a.logo {
+                font-size: 40px;
+                font-weight: bold;
+                font-family: 'Staatliches', cursive;
+                color: white;
+                float: left;
+            }
+
+            .navbar a {
+                float: right;
+                color: white;
+                margin: 14px;
+                text-decoration: none;
+                font-size: 17px;
+            }
+
+        .nav-buttons {
+            margin-top: 15px;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        .navbar a:hover:not(.logo) {
+            border-bottom: 3px solid red;
+        }
+
+        .navbar .icon {
+            display: none;
+        }
+
+        /* STYLE FOR NAVBAR ON DESKTOP */
+
+        /*--------------------------------*/
+
+        /* STYLE FOR NAVBAR ON MOBILE */
+        @@media screen and (max-width: 1200px) {
+            .navbar a:not(.logo) {
+                display: none;
+            }
+
+            .navbar a.icon {
+                float: right;
+                display: block;
+            }
+
+            .navbar.responsive {
+                position: relative;
+            }
+
+                .navbar.responsive .icon {
+                    position: absolute;
+                    right: 0;
+                    top: 15px;
+                }
+
+                .navbar.responsive a {
+                    float: none;
+                    display: block;
+                    text-align: left;
+                }
+        }
+
+        /* STYLE FOR NAVBAR ON MOBILE */
+
+        /*--------------------------------*/
+
+        /* STYLE FOR DETAILS ON DESKTOP */
+        @@media screen and (min-width: 1200px) {
+            .object-img {
+                width: 400px;
+                display: block;
+                margin-left: 60px;
+                max-width: 100%;
+                height: auto;
+                float: left;
+                margin-right: 50px;
+            }
+
+            .title {
+                margin-top: 100px;
+                margin-left: 60px;
+                font-size: 100px;
+                margin-bottom: 0px;
+                font-family: 'Staatliches', cursive;
+            }
+
+            .subtitle {
+                font-family: Arial;
+                margin-top: 0px;
+                margin-left: 60px;
+                font-size: 25px;
+                font-family: 'Staatliches', cursive;
+            }
+
+            .object-button-details:hover {
+                border-bottom: 3px solid #FF4F58FF;
+            }
+
+            .info-heading {
+                font-size: 20px;
+                font-family: 'Staatliches', cursive;
+            }
+
+            .info {
+                text-align: left;
+                width: 95%;
+            }
+
+            .title {
+                display: contents;
+            }
+
+
+            .score {
+                display: inline-block;
+                font-size: 60px;
+                padding: 20px;
+                border-radius: 8px;
+                color: white;
+                font-family: Arial;
+                font-size: 50px;
+                font-weight: bold;
+                margin-left: 50px;
+            }
+
+
+            .heading {
+                margin-left: 50px;
+                margin-top: 50px;
+            }
+
+            .button {
+                display: block;
+                width: 25%;
+                font-family: 'Staatliches', cursive;
+                cursor: pointer;
+                padding-top: 23px;
+                margin-bottom: 50px;
+                border: none;
+                background: black;
+                color: white;
+                font-family: 'Staatliches', cursive;
+                border-bottom: 3px solid red;
+                font-size: 25px;
+            }
+        }
+
+        /* STYLE FOR DETAILS ON MOBILE */
+        @@media screen and (max-width: 1200px) {
+
+            .info {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 80%;
+                margin-top: 50px;
+            }
+
+            .info-heading {
+                font-family: 'Staatliches', cursive;
+            }
+
+            .object-img {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 50%;
+            }
+
+            .title {
+                text-align: center;
+                font-size: 100px;
+                font-family: 'Staatliches', cursive;
+                margin-bottom: 0px;
+            }
+
+            .score {
+                background: #FF0000;
+                font-style: Arial, cursive;
+                font-weight: bold;
+                font-size: 42px;
+                padding: 20px;
+                border-radius: 0px;
+                color: white;
+                font-family: Arial;
+                margin-top: 0px;
+                text-align: center;
+            }
+
+            .subtitle {
+                text-align: center;
+            }
+
+            .button {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 644px;
+                width: 100%;
+                font-family: 'Staatliches', cursive;
+                cursor: pointer;
+                padding-top: 23px;
+                margin-bottom: 50px;
+                border: none;
+                background: black;
+                color: white;
+                font-family: 'Staatliches', cursive;
+                border-bottom: 3px solid red;
+                font-size: 25px;
+            }
+
+
+        /*STYLE FOR SEARCHBAR */
+    </style>
+</head>
+
+<body>
+    <!-- navbar -->
+    <header>
+        <div class="navbar" id="myNavbar">
+            <a href="/" class="logo">MovieBar</a>
+            <div class="nav-buttons">
+                @if ((int)ViewData["loginstatus"] == 1)
+                {
+                    <a href="/favorit?status=-1&imdbID=0">Favorits</a>
+                    <a href="/logout"> Logout</a>
+                }
+                else
+                {
+                    <a href="/loginform">Login</a>
+                    <a href="/registerform">Register</a>
+                }
+            </div>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
+    </header>
+
+    <div class="heading">
+        <h1 class="title">@Model.Filme.Title</h1>
+        <p class="score" style="@Html.Raw(color);">@Model.Filme.Metascore</p>
+        <p class="subtitle"> @Model.Filme.Year | @Model.Filme.Runtime | @Model.Filme.Genre</p>
+
+        <!-- filme -->
+
+        <div class="object">
+            <a href="/details">
+                <img class="object-img" src="@Model.Filme.Poster" alt="film-poster">
+            </a>
+
+
+            <div class="info">
+                <p class="info-heading" style="margin-top: 0px;"> Story:</p>
+
+                <p class="info-text">
+                    @Model.Filme.Plot
+                </p>
+
+                <p class="info-heading"> Directors:</p>
+                <p class="info-text">@Model.Filme.Director</p>
+
+                <p class="info-heading"> Writers:</p>
+                <p class="info-text">@Model.Filme.Writer</p>
+
+                <p class="info-heading"> Actors:</p>
+                <p class="info-text">@Model.Filme.Actors</p>
+            </divs
+
+            <div class="AddButtons">
+                @{
+                    if ((int)ViewData["loginstatus"] == 1)
+                    {
+                        if (ViewData["ID"] == "1")
+                        {
+                            <form method="post" action="/favorit?status=0&imdbID=@Model.Filme.imdbID">
+                                <button class="button">Remove from Favorits</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form method="post" action="/favorit?status=1&imdbID=@Model.Filme.imdbID">
+                                <button class="button">Add to Favorit</button>
+                            </form>
+                        }
+                    }
+                    else
+                    {
+                        <form method="get" action="/loginform">
+                            <button class="button">Log in to save a Film!</button>
+                        </form>
+                    }
+                }
+
+            </div>
+        </div>
+
+        <script>
+
+            function addToFavorit() {
+
+
+            }
+
+            function getValues() {
+                var searchParams = new URLSearchParams(window.location.search);
+                var type = document.getElementById("type").value;
+                var amount = document.getElementById("amount").value;
+                if (type != "default") {
+                    searchParams.set("type", type);
+                } else if (amount != "default") {
+                    searchParams.set("amount", amount);
+                }
+                window.location.href = window.location.origin + window.location.pathname + "?" + searchParams;
+            }
+            //script for navbar dropdown menu
+            function myFunction() {
+                var x = document.getElementById("myNavbar");
+                if (x.className === "navbar") {
+                    x.className += " responsive";
+                } else {
+                    x.className = "navbar";
+                }
+            }
+        </script>
+
+</body>
+
+</html>
